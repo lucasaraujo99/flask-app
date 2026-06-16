@@ -27,7 +27,7 @@ Também é possível aplicar operações sobre as variáveis
 
 ## Código no Template
 
-Delimitadores {% %}: para chamar código no template
+**Delimitadores {% %}:** para chamar código no template
 
 ```
 <tbody>
@@ -49,4 +49,4 @@ Delimitadores {% %}: para chamar código no template
 
 ## Comentários no Template
 
-Delimitadores {# #}: para colocar comentário no template que não serão exibidos
+**Delimitadores {# #}:** para colocar comentário no template que não serão exibidos
