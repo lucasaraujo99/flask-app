@@ -2,7 +2,7 @@
 
 Projeto de aplicativo web em Flask.
 
-## Inicialização do Projeto
+## Inicialização e Execução do Projeto
 
 ### Criar pasta venv
 - linux: python3 -m venv venv 

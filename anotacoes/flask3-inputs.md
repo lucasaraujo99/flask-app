@@ -41,3 +41,15 @@ def criar():
     nome = request.form['nome']
 ...
 ```
+
+## Redirecionando Rotas
+
+A rota de criação deve ser intermediária, logo após seu uso, outra rota deve ser mostrada em seguida.
+Para isso, usamos **redirect()**.
+
+```
+@app.route('/criar', methods=['POST',])
+def criar():
+  ...
+  return redirect('/')
+```
