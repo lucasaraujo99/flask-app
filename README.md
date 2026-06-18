@@ -34,7 +34,8 @@ git-github/
 ├── anotacoes/
 ├── static/
 ├── templates/
-├── jogoteca.
+├── jogoteca.py
+├── prepara_banco.py
 └── ...
 ```
 
@@ -45,3 +46,5 @@ static/ → arquivos de estilo (css e bootstrap)
 templates/ → arquivos de interface (html)
 
 jogoteca.py → arquivo principal da aplicação (html)
+
+prepara_banco.py → arquivo de inicialização do banco MySql usando para armazenar os dados da aplicação
