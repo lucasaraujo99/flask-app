@@ -34,8 +34,11 @@ git-github/
 ├── anotacoes/
 ├── static/
 ├── templates/
+├── config.py
 ├── jogoteca.py
+├── models.py
 ├── prepara_banco.py
+├── views.py
 └── ...
 ```
 
@@ -45,6 +48,12 @@ static/ → arquivos de estilo (css e bootstrap)
 
 templates/ → arquivos de interface (html)
 
-jogoteca.py → arquivo principal da aplicação (html)
+config.py → arquivo de configuração do projeto (chave de criptografia, uri)
+
+jogoteca.py → arquivo principal da aplicação (instancia e roda)
+
+models.py → arquivo de classes equivalentes às tabelas do mysql (Jogos, Usuarios)
 
 prepara_banco.py → arquivo de inicialização do banco MySql usando para armazenar os dados da aplicação
+
+views.py → arquivo de rotas (routes) (index, login, autenticar, etc)
