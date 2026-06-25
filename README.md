@@ -30,10 +30,11 @@ Projeto de aplicativo web em Flask, simulando uma biblioteca de jogos eletrônic
 ## Estrutura do Projeto
 
 ```
-git-github/
+flask-app/
 ├── anotacoes/
 ├── static/
 ├── templates/
+├── uploads/
 ├── config.py
 ├── jogoteca.py
 ├── models.py
@@ -47,6 +48,8 @@ anotacoes/ → material de consulta
 static/ → arquivos de estilo (css e bootstrap)
 
 templates/ → arquivos de interface (html)
+
+uploads/ → contém as imagens guardadas localmente
 
 config.py → arquivo de configuração do projeto (chave de criptografia, uri)
 
