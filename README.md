@@ -36,6 +36,7 @@ flask-app/
 ├── templates/
 ├── uploads/
 ├── config.py
+├── helpers.py
 ├── jogoteca.py
 ├── models.py
 ├── prepara_banco.py
@@ -45,13 +46,15 @@ flask-app/
 
 anotacoes/ → material de consulta
 
-static/ → arquivos de estilo (css e bootstrap)
+static/ → arquivos de estilo (css, bootstrap e js)
 
 templates/ → arquivos de interface (html)
 
 uploads/ → contém as imagens guardadas localmente
 
 config.py → arquivo de configuração do projeto (chave de criptografia, uri)
+
+helpers.py → arquivo contendo funções auxiliares
 
 jogoteca.py → arquivo principal da aplicação (instancia e roda)
 
