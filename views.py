@@ -3,7 +3,7 @@ import time
 
 from jogoteca import app, db
 from models import Jogos, Usuarios
-from helpers import retorna_imagem, deleta_arquivo
+from helpers import retorna_imagem, deleta_arquivo, FormularioJogo, FormularioUsuario
 
 # Arquivo de rotas
 
@@ -17,13 +17,26 @@ def novo():
     if 'usuario_logado' not in session or session ['usuario_logado'] == None:
         # return redirect('/login?proxima=novo') # ?proxima=novo é usado para guardar e redirecionar o usuário para a pg que ele queria inicialmente
         return redirect(url_for('login', proxima=url_for('novo'))) 
-    return render_template('novo.html', titulo= 'Novo Jogo')
+    form = FormularioJogo()
+    return render_template('novo.html', titulo= 'Novo Jogo', form = form)
 
 @app.route('/criar', methods=['POST',])
 def criar():
-    nome = request.form['nome'] # "nome" é o valor no "name" no input do form
-    categoria = request.form['categoria']
-    console = request.form['console']
+
+    # Recuperando a partir dos campos de formulário com Flask puro
+    # nome = request.form['nome'] # "nome" é o valor no "name" no input do form
+    # categoria = request.form['categoria']
+    # console = request.form['console']
+
+    # Recuperando e validando a partir dos campos de formulário com flask-wtf
+    form = FormularioJogo(request.form)
+
+    if not form.validate_on_submit():
+        return redirect(url_for('novo'))
+
+    nome = form.nome.data
+    categoria = form.categoria.data
+    console = form.console.data
 
     jogo = Jogos.query.filter_by(nome=nome).first()
     if jogo:
@@ -51,27 +64,42 @@ def editar(id):
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
     
     jogo = Jogos.query.filter_by(id=id).first()
+
+    form = FormularioJogo()
+    form.nome.data = jogo.nome
+    form.categoria.data = jogo.categoria
+    form.console.data = jogo.console
+
     capa_jogo = retorna_imagem(id)
-    return render_template('editar.html', titulo= 'Editar Jogo', jogo=jogo, capa_jogo=capa_jogo)
+    # return render_template('editar.html', titulo= 'Editar Jogo', jogo=jogo, capa_jogo=capa_jogo) # render_template usado com flask puro
+    return render_template('editar.html', titulo= 'Editar Jogo', id=id, capa_jogo=capa_jogo, form=form)
 
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
-    jogo = Jogos.query.filter_by(id=request.form['id']).first()
+    form = FormularioJogo(request.form)
+    if form.validate_on_submit():
+        jogo = Jogos.query.filter_by(id=request.form['id']).first()
 
-    jogo.nome = request.form['nome']
-    jogo.categoria = request.form['categoria']
-    jogo.console = request.form['console']
+        # Requisição de campos do forms em flask puro
+        # jogo.nome = request.form['nome']
+        # jogo.categoria = request.form['categoria']
+        # jogo.console = request.form['console']
 
-    db.session.add(jogo)
-    db.session.commit()
+        # Requisição de campos do forms em flask-wtf
+        jogo.nome = form.nome.data
+        jogo.categoria = form.categoria.data
+        jogo.console = form.console.data
 
-    arquivo = request.files['arquivo']
-    upload_path = app.config['UPLOAD_PATH']
+        db.session.add(jogo)
+        db.session.commit()
 
-    deleta_arquivo(jogo.id)
+        arquivo = request.files['arquivo']
+        upload_path = app.config['UPLOAD_PATH']
 
-    timestamp=time.time()
-    arquivo.save(f'{upload_path}/capa{jogo.id}-{timestamp}.jpg')
+        deleta_arquivo(jogo.id)
+
+        timestamp=time.time()
+        arquivo.save(f'{upload_path}/capa{jogo.id}-{timestamp}.jpg')
 
     return redirect(url_for('index'))
 
@@ -90,11 +118,14 @@ def deletar(id):
 @app.route('/login')
 def login():
     proxima = request.args.get('proxima') # captura a página a ser mostrada (definida em ?proxima=novo) depois do login ser efetuado
-    return render_template('login.html', proxima=proxima) # passamos proxima para a página, onde ela será capturada pelo forms (de forma escondida)
+    form = FormularioUsuario() #flask-wtform
+    return render_template('login.html', proxima=proxima, form=form) # passamos proxima para a página, onde ela será capturada pelo forms (de forma escondida)
 
 @app.route('/autenticar', methods=['POST',])
 def autenticar():
-    usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    # usuario = Usuarios.query.filter_by(nickname=request.form['usuario']).first()
+    form = FormularioUsuario(request.form)
+    usuario = Usuarios.query.filter_by(nickname=form.nickname.data).first()
     if usuario:
         if request.form['senha'] == usuario.senha:
             session['usuario_logado'] = usuario.nickname

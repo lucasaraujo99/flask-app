@@ -14,18 +14,41 @@ Projeto de aplicativo web em Flask, simulando uma biblioteca de jogos eletrônic
 ## Inicialização e Execução do Projeto
 
 ### Criar pasta venv
-- linux: python3 -m venv venv 
-- windows: py -3 -m venv .venv
+- linux: 
+```
+python3 -m venv venv 
+```
+
+- windows: 
+```
+py -3 -m venv .venv
+```
 
 ### Ativa ambiente virtual
-- linux: source /venv/bin/activate /
-- windows: .venv\Scripts\activate
+- linux: 
+```
+source /venv/bin/activate /
+```
+
+- windows: 
+```
+.venv\Scripts\activate
+```
 
 ### Instalar requerimentos
-- pip install -r requirements.txt
+``` 
+pip install -r requirements.txt
+```
+
+**OBS:** para atualizar o requirementes é possível usar **pip freeze**
+```
+pip freeze > requirements.txt
+```
 
 ### Rodar
-- python jogoteca.py
+```
+python jogoteca.py
+```
 
 ## Estrutura do Projeto
 

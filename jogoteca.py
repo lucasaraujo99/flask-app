@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_wtf.csrf import CSRFProtect
 
 # variavel que armezena a aplicacao
 app = Flask(__name__)
@@ -8,6 +9,8 @@ app.config.from_pyfile('config.py')
 
 # banco de dados
 db = SQLAlchemy(app)
+
+csrf = CSRFProtect(app)
 
 from views import *
 
